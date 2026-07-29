@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Falafoliva — Lebanese Street Food Truck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F1E3;
+    --cream-2:#F1E9D4;
+    --paper:#FFFFFF;
+    --ink:#17211D;
+    --ink-soft:#5B6A63;
+    --olive:#16302A;
+    --olive-dark:#0F2019;
+    --olive-mid:#2B5145;
+    --gold:#F2A900;
+    --gold-soft:#F7BC2E;
+    --line:rgba(23,33,29,0.12);
+    --maxw:1240px;
+    --serif:"Poppins", sans-serif;
+    --sans:'Inter', -apple-system, sans-serif;
+    --anton:"Anton", sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16px;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:450;line-height:1.1;letter-spacing:-0.01em;color:var(--ink);}
+  em{font-style:italic;color:var(--gold);font-weight:400;}
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  ul{list-style:none;}
+  button{font-family:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .photo{filter:saturate(.92) contrast(1.06) brightness(.99);}
+
+  .label{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;color:var(--gold);margin-bottom:18px;}
+  .label::after{content:"";flex:0 0 40px;height:1px;background:currentColor;opacity:.5;}
+  .label.on-light{color:var(--olive);}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid transparent;cursor:pointer;transition:all .25s ease;white-space:nowrap;border-radius:3px;}
+  .btn-fill{background:var(--gold);color:var(--olive-dark);}
+  .btn-fill:hover{background:var(--gold-soft);transform:translateY(-2px);}
+  .btn-line-light{border-color:rgba(255,255,255,0.45);color:#fff;}
+  .btn-line-light:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
+  .btn-line-dark{border-color:var(--olive);color:var(--olive);}
+  .btn-line-dark:hover{background:var(--olive);color:#fff;}
+
+  section{padding:120px 0;}
+  @media (max-width:900px){section{padding:76px 0;}}
+
+  /* ---------- HEADER ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 0;background:var(--olive-dark);border-bottom:1px solid rgba(255,255,255,0.08);transition:padding .3s ease, box-shadow .3s ease;}
+  header.scrolled{padding:13px 0;box-shadow:0 12px 30px -18px rgba(0,0,0,0.5);}
+  nav{display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:8px;}
+  .logo img{height:46px;width:auto;display:block;}
+  .logo .dot{color:var(--gold);}
+  .nav-links{display:flex;align-items:center;gap:36px;}
+  .nav-links a{font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:rgba(255,255,255,0.85);position:relative;padding:4px 0;}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .25s ease;}
+  .nav-links a:hover{color:#fff;}
+  .nav-links a:hover::after{width:100%;}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .nav-order-btn{padding:11px 22px;font-size:12px;}
+  .menu-toggle{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:#fff;padding:10px;margin:-10px;line-height:1;}
+  @media (max-width:900px){.nav-order-btn{display:none;}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      linear-gradient(115deg, #16302a 0%, #1c3a30 35%, #4a4020 62%, #16302a 100%);
+    padding-top:0;padding-bottom:0;position:relative;overflow:hidden;min-height:697px;
+  }
+  .hero-nav-spacer{height:110px;position:relative;z-index:2;}
+  .hero-brand{display:flex;justify-content:center;padding-top:36px;position:relative;z-index:2;}
+  .hero-brand img{height:64px;width:auto;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.35));}
+  .hero-bgtype{
+    position:absolute;top:40%;left:50%;width:100%;transform:translate(-50%,-50%);
+    font-family:var(--anton);font-weight:700;font-size:clamp(90px,14vw,220px);
+    color:rgba(255,255,255,0.06);white-space:nowrap;letter-spacing:0.09em;
+    pointer-events:none;line-height:1;z-index:0;text-align:center;
+  }
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:0.8fr 1.2fr;gap:20px;align-items:end;min-height:300px;padding-bottom:0;}
+  .hero-copy{max-width:520px;padding-bottom:36px;}
+  .hero-copy .label{color:var(--gold-soft);}
+  .hero-stack{
+    position:relative;font-family:var(--anton);font-weight:700;text-transform:uppercase;
+    line-height:0.90;letter-spacing:0px;color:#fff;margin:14px 0 20px;width:100%;
+  }
+  .hero-stack .stline{display:block;white-space:nowrap;transform-origin:left top;font-size:clamp(62px,7.6vw,86px);}
+  .hero-tagline{font-family:var(--sans);font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--gold-soft);margin-bottom:20px;}
+  .hero-copy p{color:rgba(255,255,255,0.68);font-size:16px;max-width:420px;margin-bottom:34px;}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+
+  .hero-showcase{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:flex-end;}
+  .hero-ground-shadow{position:absolute;bottom:2%;right:6%;width:62%;height:26px;background:radial-gradient(ellipse at center, rgba(0,0,0,0.45), transparent 70%);z-index:0;}
+  .hero-truck{position:relative;z-index:1;width:150%;max-width:none;margin-right:-62%;filter:drop-shadow(0 30px 26px rgba(0,0,0,0.4));}
+  .hero-truck img{width:100%;height:auto;display:block; margin-bottom:50px;}
+.hero-badge {
+  position: absolute;
+  top: -36px;
+  left: 240px;
+  z-index: 3;
+  transform: rotate(-9deg);
+  filter: drop-shadow(0 10px 16px rgba(0,0,0,0.45));
+  opacity: 0.75; /* Adjust between 0.0 (completely invisible) and 1.0 (fully opaque) */
+}
+  .hero-badge img{width:100%;height:100%;object-fit:contain;}
+  @media (max-width:980px){
+    .hero{min-height:auto;}
+    .hero-grid{grid-template-columns:1fr;text-align:center;min-height:auto;padding-bottom:40px;}
+    .hero-copy{max-width:100%;margin:0 auto;padding-bottom:20px;}
+    .hero-badge{left:50%;top:-70px;transform:translateX(-50%) rotate(-9deg);}
+    .hero-actions{justify-content:center;}
+    .hero-showcase{justify-content:center;margin-top:30px;}
+    .hero-truck{width:100%;margin-right:0;}
+    .hero-bgtype{display:none;}
+    .hero-nav-spacer{height:150px;}
+  }
+  @media (max-width:480px){
+    .hero-stack .stline{font-size:38px;}
+    .hero-badge{width:80px;height:80px;top:-52px;}
+    .hero-nav-spacer{height:120px;}
+    .hero-tagline{font-size:13px;}
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{background:var(--gold);overflow:hidden;padding:16px 0;}
+  .marquee-track{display:flex;white-space:nowrap;animation:scrollmq 30s linear infinite;width:max-content;}
+  .marquee-track span{font-family:var(--serif);font-weight:600;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;color:var(--olive-dark);padding:0 30px;display:inline-flex;align-items:center;gap:30px;}
+  .marquee-track span::after{content:"◆";font-size:9px;color:var(--olive-dark);opacity:.5;}
+  @keyframes scrollmq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ---------- MENU ---------- */
+  .menu{background:var(--cream);}
+  .menu-intro{text-align:center;max-width:600px;margin:0 auto 50px;}
+  .menu-intro .label{justify-content:center;}
+  .menu-intro p{color:var(--ink-soft);font-size:16px;}
+  .menu-tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:56px;}
+  .menu-tab{padding:12px 26px;border:1px solid var(--olive);border-radius:100px;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--olive);background:transparent;cursor:pointer;transition:all .2s ease;}
+  .menu-tab:hover{background:rgba(22,48,42,0.06);}
+  .menu-tab.active{background:var(--olive);color:#fff;}
+  .menu-panel{display:none;}
+  .menu-panel.active{display:block;animation:fadein .4s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .menu-card{background:var(--paper);border-radius:4px;overflow:hidden;box-shadow:0 20px 45px -26px rgba(23,33,29,0.3);transition:transform .3s ease;}
+  .menu-card:hover{transform:translateY(-6px);}
+  .menu-card .mimg{aspect-ratio:4/3.2;overflow:hidden;}
+  .menu-card .mimg img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .menu-card:hover .mimg img{transform:scale(1.06);}
+  .menu-card-body{padding:22px 24px 26px;}
+  .menu-card-body h4{font-size:18px;margin-bottom:6px;}
+  .menu-card-body p{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px;}
+  .menu-card-price{font-family:var(--serif);color:var(--cream);background:var(--olive-dark);display:inline-block;padding:5px 14px;border-radius:100px;font-size:14px;}
+  .menu-card{position:relative;}
+  .badge-popular{position:absolute;top:14px;right:14px;z-index:2;background:#C1442E;color:#fff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;padding:5px 11px;border-radius:100px;}
+  .menu-tags{display:flex;gap:8px;flex-wrap:wrap;}
+  .menu-tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:5px 11px;border-radius:100px;}
+  .menu-tag.vegan{color:var(--olive);border:1px solid var(--olive);}
+  .menu-tag.cat{color:var(--ink-soft);background:var(--cream-2);}
+  .menu-cta{text-align:center;margin-top:56px;}
+  @media (max-width:900px){.menu-grid{grid-template-columns:1fr;}}
+
+  /* ---------- REVIEWS ---------- */
+  .reviews{background:var(--gold);color:var(--olive-dark);}
+  .reviews .label{color:var(--olive-dark);}
+  .reviews-head{max-width:600px;margin-bottom:56px;}
+  .reviews-head h2{color:var(--olive-dark);font-size:clamp(28px,4vw,42px);}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(15,32,25,0.15);border:1px solid rgba(15,32,25,0.15);}
+  .review-card{background:var(--paper);padding:36px 30px;display:flex;flex-direction:column;gap:18px;}
+  .quote-mark{font-family:var(--serif);font-style:italic;font-size:44px;color:var(--gold);line-height:1;}
+  .review-card p{font-size:14.5px;line-height:1.6;color:var(--ink);flex-grow:1;}
+  .reviewer{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--line);}
+  .reviewer .avatar{width:36px;height:36px;border-radius:50%;background:var(--olive-dark);color:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;}
+  .reviewer strong{font-size:13px;display:block;font-weight:700;}
+  @media (max-width:900px){.review-grid{grid-template-columns:1fr;}}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--cream);}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .gallery-grid a{aspect-ratio:1;overflow:hidden;border-radius:3px;display:block;}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .gallery-grid a:hover img{transform:scale(1.08);}
+  @media (max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- LOCATION & SCHEDULE ---------- */
+  .location{background:var(--paper);}
+  .location-top{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-bottom:70px;}
+  .location-copy h2{font-size:clamp(28px,4vw,42px);margin-bottom:18px;}
+  .location-copy p{color:var(--ink-soft);font-size:16px;max-width:460px;}
+  .map-frame{border-radius:4px;overflow:hidden;box-shadow:0 30px 60px -28px rgba(23,33,29,0.35);aspect-ratio:4/3;border:6px solid var(--paper);outline:1px solid var(--line);}
+  .map-frame iframe{width:100%;height:100%;border:0;filter:grayscale(.25) contrast(1.05);}
+  .schedule-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .schedule-row.single{grid-template-columns:1fr;max-width:420px;margin:0 auto;text-align:center;}
+  .schedule-card{background:var(--paper);padding:30px 26px;}
+  .schedule-card .sc-date{font-family:var(--serif);color:var(--gold-soft);background:var(--olive-dark);display:inline-block;padding:4px 12px;border-radius:100px;font-size:12px;margin-bottom:14px;}
+  .schedule-card h4{font-size:18px;margin-bottom:8px;}
+  .schedule-card span{display:block;font-size:13px;color:var(--ink-soft);margin-bottom:4px;}
+  @media (max-width:900px){.location-top{grid-template-columns:1fr;gap:40px;}.schedule-row{grid-template-columns:1fr 1fr;}}
+  @media (max-width:560px){.schedule-row{grid-template-columns:1fr;}}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--olive);}
+  .about .wrap{display:grid;grid-template-columns:0.9fr 1fr;gap:80px;align-items:center;}
+  .about-media{aspect-ratio:4/4.6;border-radius:4px;overflow:hidden;box-shadow:0 30px 60px -28px rgba(0,0,0,0.5);}
+  .about-media img{width:100%;height:100%;object-fit:cover;}
+  .about-copy .signature{font-family:var(--serif);font-style:italic;font-size:34px;color:var(--gold-soft);margin-bottom:18px;}
+  .about-copy h2{color:#fff;font-size:clamp(28px,4vw,42px);margin-bottom:20px;}
+  .about-copy p{color:rgba(255,255,255,0.7);font-size:16px;max-width:480px;margin-bottom:16px;}
+  @media (max-width:900px){.about .wrap{grid-template-columns:1fr;gap:44px;}}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--cream);}
+  .contact .wrap{display:grid;grid-template-columns:0.8fr 1fr;gap:70px;}
+  .contact-info h2{font-size:clamp(28px,4vw,40px);margin-bottom:18px;}
+  .contact-info p{color:var(--ink-soft);margin-bottom:36px;max-width:380px;}
+  .contact-item{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-top:1px solid var(--line);}
+  .contact-item:last-child{border-bottom:1px solid var(--line);}
+  .contact-item .ci-ico{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:20px;width:28px;}
+  .contact-item h5{font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-soft);margin-bottom:4px;}
+  .contact-item span{font-size:16px;font-weight:600;}
+  .contact-form{background:var(--paper);padding:44px;border-radius:4px;box-shadow:0 24px 50px -28px rgba(23,33,29,0.3);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+  .contact-form label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:8px;font-weight:700;}
+  .contact-form input,.contact-form textarea{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:3px;font-family:var(--sans);font-size:14.5px;background:var(--cream);color:var(--ink);}
+  .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--gold);}
+  .contact-form textarea{resize:vertical;min-height:120px;margin-bottom:22px;}
+  .form-field{margin-bottom:0;}
+  @media (max-width:900px){.contact .wrap{grid-template-columns:1fr;gap:44px;}.form-row{grid-template-columns:1fr;}.contact-form{padding:28px;}}
+
+  /* ---------- FOOTER CTA ---------- */
+  .social-row{display:flex;gap:14px;justify-content:center;}
+  .social-row a{width:42px;height:42px;border:1px solid rgba(255,255,255,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;transition:all .2s ease;}
+  .social-row a:hover{background:var(--gold);border-color:var(--gold);color:var(--olive-dark);}
+  .social-row svg{width:18px;height:18px;fill:currentColor;}
+
+  /* ---------- COPYRIGHT ---------- */
+  .copyright{background:var(--olive-dark);border-top:1px solid rgba(255,255,255,0.08);padding:24px 0;text-align:center;font-size:12.5px;color:rgba(255,255,255,0.45);}
+  .copyright a:hover{color:var(--gold-soft);}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:900px){
+    .nav-links{position:fixed;top:0;right:-100%;width:78%;max-width:320px;height:100vh;background:var(--olive-dark);flex-direction:column;justify-content:center;align-items:flex-start;gap:28px;padding:40px;transition:right .35s ease;box-shadow:-16px 0 40px rgba(0,0,0,0.35);z-index:5;}
+    .nav-links.open{right:0;}
+    .menu-toggle{display:block;z-index:6;}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    .hero-actions,.cta-actions{flex-direction:column;width:100%;}
+    .btn{width:100%;justify-content:center;}
+    section{padding:56px 0;}
+    .logo img{height:38px;}
+    .menu-tabs{gap:8px;margin-bottom:36px;}
+    .menu-tab{padding:10px 18px;font-size:11.5px;}
+    .menu-card-body{padding:18px 18px 22px;}
+    .gallery-grid{grid-template-columns:1fr 1fr;gap:10px;}
+    .review-card{padding:28px 22px;}
+    .contact-form{padding:22px;}
+    .schedule-card{padding:24px 20px;}
+    .copyright .wrap{flex-direction:column;text-align:center;gap:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo"><img src="logo-falafoliva.png" alt="Falafoliva — street food with a twist"></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#location">Locations</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="https://www.ubereats.com/pt/store/falafoliva/SV361oD2U8KmH1RA7_LRNA" target="_blank" rel="noopener" class="btn btn-fill nav-order-btn">Order Now</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  
+  <div class="hero-nav-spacer"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="label">Falafoliva</div>
+        <h1 id="stretchHeadline" class="hero-stack">
+          <div class="hero-badge">
+            <img src="logo-falafoliva.png" alt="Falafoliva logo">
+          </div>
+          <span class="stline">Ain't No</span>
+          <span class="stline">Falafel Like</span>
+          <span class="stline">Falafoliva</span>
+        </h1>
+        <div class="hero-tagline">Fresh, bold and unapologetically Lebanese.</div>
+        <p>Vegan wraps, sides and salads made fresh daily from a secret family recipe, served straight from our truck to your hands.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-fill">Explore Menu</a>
+          <a href="#location" class="btn btn-line-light">Find Our Trucks</a>
+        </div>
+      </div>
+
+      <div class="hero-showcase reveal">
+        <div class="hero-ground-shadow"></div>
+        <div class="hero-truck">
+          <img src="truck-illustration-cutout.png" alt="Falafoliva food truck">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>100% Vegan</span><span>Fresh Daily</span><span>Secret Family Recipe</span><span>Street Food With A Twist</span>
+    <span>100% Vegan</span><span>Fresh Daily</span><span>Secret Family Recipe</span><span>Street Food With A Twist</span>
+  </div>
+</div>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="menu-intro reveal">
+      <div class="label on-light">Our Menu</div>
+      <h2 style="font-size:clamp(30px,4.4vw,46px);margin-bottom:18px;">Taste the Mediterranean</h2>
+      <p>Everything is made in-house every morning, from the falafel mix to the pickled turnips.</p>
+    </div>
+
+    <div class="menu-tabs reveal">
+      <button class="menu-tab active" data-tab="all">All Items</button>
+      <button class="menu-tab" data-tab="wraps">Wraps</button>
+      <button class="menu-tab" data-tab="salads">Salads</button>
+      <button class="menu-tab" data-tab="sides">Sides</button>
+    </div>
+
+    <div class="menu-panel active" id="panel-all">
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <span class="badge-popular">Popular</span>
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/88388542-e9a9-437c-9688-f64aa737fa5e.jpg" alt="Famous falafel wrap"></div>
+          <div class="menu-card-body"><h4>Famous Falafel Wrap</h4><p>Falafel, lettuce, tomatoes, mint leaves, pickles and tahini sauce.</p><span class="menu-card-price">€ 8</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <span class="badge-popular">Popular</span>
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/93b41499-aab9-4c37-9836-22829ce3e480.png" alt="Plant based mix wrap"></div>
+          <div class="menu-card-body"><h4>Plant Based Mix Wrap</h4><p>Cauliflower, batata, eggplant, lettuce and tahini sauce.</p><span class="menu-card-price">€ 7</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <span class="badge-popular">Popular</span>
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/f24468fa-e40c-4f52-8de5-e70d19e57c62.png" alt="Hummus"></div>
+          <div class="menu-card-body"><h4>Hummus</h4><p>Chickpea purée, tahini, lemon and olive oil.</p><span class="menu-card-price">€ 8</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/d7644511-6993-425a-8b6a-0bef8cacb862.png" alt="Lebanese batata wrap"></div>
+          <div class="menu-card-body"><h4>Lebanese Batata Wrap</h4><p>Fries, coleslaw, pickles and ketchup.</p><span class="menu-card-price">€ 7</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/35affc22-6441-4ce7-bc51-92b56a185a3c.png" alt="Tabbouli"></div>
+          <div class="menu-card-body"><h4>Tabbouli</h4><p>Tomatoes, parsley, bulgur, onion and mint with lemon and olive oil dressing.</p><span class="menu-card-price">€ 8</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/06a246fb-018f-48bf-9839-14ef18f8a9ee.png" alt="Moutabal"></div>
+          <div class="menu-card-body"><h4>Moutabal</h4><p>Eggplant purée, tahini and olive oil.</p><span class="menu-card-price">€ 9</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/807e6837-0c4a-4019-a234-1fc421308994.png" alt="Hummus and falafel"></div>
+          <div class="menu-card-body"><h4>Hummus &amp; Falafel</h4><p>Chickpea purée, tahini, lemon and olive oil, topped with falafel.</p><span class="menu-card-price">€ 10</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/a37e6ed3-5723-4f6e-b39a-3f38d2f4fa83.jpg" alt="Wild fries"></div>
+          <div class="menu-card-body"><h4>Wild Fries</h4><p>Fries topped with thyme.</p><span class="menu-card-price">€ 4</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/48513df3-2093-494b-86bb-93dcf6accf81.jpeg" alt="Vegan stuffed grape leaves"></div>
+          <div class="menu-card-body"><h4>Vegan Stuffed Grape Leaves</h4><p>Grape leaves, tomatoes, short-grain rice and olive oil.</p><span class="menu-card-price">€ 6</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-wraps">
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <span class="badge-popular">Popular</span>
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/88388542-e9a9-437c-9688-f64aa737fa5e.jpg" alt="Famous falafel wrap"></div>
+          <div class="menu-card-body"><h4>Famous Falafel Wrap</h4><p>Falafel, lettuce, tomatoes, mint leaves, pickles and tahini sauce.</p><span class="menu-card-price">€ 8</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <span class="badge-popular">Popular</span>
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/93b41499-aab9-4c37-9836-22829ce3e480.png" alt="Plant based mix wrap"></div>
+          <div class="menu-card-body"><h4>Plant Based Mix Wrap</h4><p>Cauliflower, batata, eggplant, lettuce and tahini sauce.</p><span class="menu-card-price">€ 7</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/d7644511-6993-425a-8b6a-0bef8cacb862.png" alt="Lebanese batata wrap"></div>
+          <div class="menu-card-body"><h4>Lebanese Batata Wrap</h4><p>Fries, coleslaw, pickles and ketchup.</p><span class="menu-card-price">€ 7</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-salads">
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/35affc22-6441-4ce7-bc51-92b56a185a3c.png" alt="Tabbouli"></div>
+          <div class="menu-card-body"><h4>Tabbouli</h4><p>Tomatoes, parsley, bulgur, onion and mint with lemon and olive oil dressing.</p><span class="menu-card-price">€ 8</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-sides">
+      <div class="menu-grid">
+        <div class="menu-card reveal">
+          <span class="badge-popular">Popular</span>
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/f24468fa-e40c-4f52-8de5-e70d19e57c62.png" alt="Hummus"></div>
+          <div class="menu-card-body"><h4>Hummus</h4><p>Chickpea purée, tahini, lemon and olive oil.</p><span class="menu-card-price">€ 8</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/06a246fb-018f-48bf-9839-14ef18f8a9ee.png" alt="Moutabal"></div>
+          <div class="menu-card-body"><h4>Moutabal</h4><p>Eggplant purée, tahini and olive oil.</p><span class="menu-card-price">€ 9</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/807e6837-0c4a-4019-a234-1fc421308994.png" alt="Hummus and falafel"></div>
+          <div class="menu-card-body"><h4>Hummus &amp; Falafel</h4><p>Chickpea purée, tahini, lemon and olive oil, topped with falafel.</p><span class="menu-card-price">€ 10</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/a37e6ed3-5723-4f6e-b39a-3f38d2f4fa83.jpg" alt="Wild fries"></div>
+          <div class="menu-card-body"><h4>Wild Fries</h4><p>Fries topped with thyme.</p><span class="menu-card-price">€ 4</span></div>
+        </div>
+        <div class="menu-card reveal">
+          <div class="mimg"><img class="photo" src="https://www.falafoliva.com/api/uploads/48513df3-2093-494b-86bb-93dcf6accf81.jpeg" alt="Vegan stuffed grape leaves"></div>
+          <div class="menu-card-body"><h4>Vegan Stuffed Grape Leaves</h4><p>Grape leaves, tomatoes, short-grain rice and olive oil.</p><span class="menu-card-price">€ 6</span></div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<section class="location" id="location">
+  <div class="wrap">
+    <div class="location-top">
+      <div class="location-copy reveal">
+        <div class="label on-light">Find Us</div>
+        <h2>Our food truck is always on the move.</h2>
+        <p>We travel to different spots throughout the week to bring fresh, delicious Lebanese street food wherever you are. Follow us on Instagram for real-time location updates.</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=R.+F%C3%A1brica+de+Material+de+Guerra+1%2C+1950-128+Lisboa" target="_blank" rel="noopener" class="btn btn-line-dark" style="margin-top:24px;">Open In Maps →</a>
+      </div>
+      <div class="map-frame reveal">
+        <iframe src="https://maps.google.com/maps?q=R.%20F%C3%A1brica%20de%20Material%20de%20Guerra%201%2C%201950-128%20Lisboa&t=m&z=15&output=embed&iwloc=near" loading="lazy" allowfullscreen title="Falafoliva location map"></iframe>
+      </div>
+    </div>
+
+    <div class="schedule-row single reveal">
+      <div class="schedule-card">
+        <span class="sc-date">Wed – Sun</span>
+        <h4>Main Spot</h4>
+        <span>R. Fábrica de Material de Guerra 1</span>
+        <span>1950-128 Lisboa</span>
+        <span>17:00 – 00:00</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-media reveal">
+      <img class="photo" src="https://www.falafoliva.com/api/uploads/46adede4-9106-4761-9dc4-7982c3731590.jpeg" alt="Falafoliva kitchen">
+    </div>
+    <div class="about-copy reveal">
+      <div class="signature">Falafoliva</div>
+      <div class="label">Est. 2020</div>
+      <h2>A taste of Lebanese authenticity, born in Lisbon.</h2>
+      <p>Falafoliva grew out of a love for Lebanese cooking and a wish to share it with Lisbon. What began as a family tradition has grown into one of the city's favourite street food stops.</p>
+      <p>Our falafel recipe has travelled through generations — a closely guarded secret that makes every bite memorable. Today we serve it from our food trucks, made fresh, plant-based and locally sourced, every single day.</p>
+      <div class="stat-row" style="display:flex;gap:36px;margin-top:28px;">
+        <div><strong style="display:block;font-family:var(--serif);font-size:26px;color:var(--gold-soft);">5+</strong><span style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.6);">Years of Flavor</span></div>
+        <div><strong style="display:block;font-family:var(--serif);font-size:26px;color:var(--gold-soft);">10K+</strong><span style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.6);">Happy Customers</span></div>
+        <div><strong style="display:block;font-family:var(--serif);font-size:26px;color:var(--gold-soft);">100%</strong><span style="font-size:11.5px;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.6);">Vegan Menu</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="location" id="team" style="background:var(--cream);padding-top:0;">
+  <div class="wrap">
+    <div class="location-top" style="margin-bottom:0;">
+      <div class="reveal">
+        <div class="label on-light">The Team</div>
+        <h2 style="font-size:clamp(26px,3.6vw,36px);margin-bottom:16px;">Meet the family behind the falafel.</h2>
+        <p style="color:var(--ink-soft);max-width:440px;margin-bottom:16px;">Every dish is made by a small team of food lovers who share one goal: sending every guest off with a full stomach and a smile. Founder Nabil Assaf's original recipe is still at the heart of everything we cook.</p>
+        <p style="font-family:var(--serif);font-style:italic;color:var(--olive);font-size:17px;">"Welcome to the Falafoliva journey — where tradition meets flavor."</p>
+        <p style="font-size:13px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.06em;margin-top:8px;">— Nabil Assaf, Founder</p>
+      </div>
+      <div class="map-frame reveal" style="aspect-ratio:4/3.4;">
+        <img class="photo" src="https://www.falafoliva.com/api/uploads/f599f790-03b3-48f3-8650-196a8a0ee916.jpeg" alt="Falafoliva team" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="reviews-head reveal">
+      <div class="label">Happy Customers</div>
+      <h2>What People Say</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card reveal">
+        <div class="quote-mark">“</div>
+        <p>Simply delicious, great service! We ordered vegan stuffed grape leaves, moutabal, a falafel bowl and fatoosh — the stuffed grape leaves were our favourite, especially that piquant sauce. Only wish the portions were a little bigger.</p>
+        <div class="reviewer"><div class="avatar">S</div><div><strong>Shirley "Musefaery" NKL</strong></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="quote-mark">“</div>
+        <p>Amazing falafel, tasty hummus and moutabal — staff were super welcoming. Will definitely come back!</p>
+        <div class="reviewer"><div class="avatar">J</div><div><strong>Josephine RF</strong></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="quote-mark">“</div>
+        <p>We tried all three wraps plus the hummus and moutabal — the best hummus we've ever had. Congratulations to the chef and team; the Lebanese Almaza beer was the perfect pairing.</p>
+        <div class="reviewer"><div class="avatar">C</div><div><strong>Charles Cabell IV</strong></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="menu-intro reveal">
+      <div class="label on-light">Visual Feast</div>
+      <h2 style="font-size:clamp(30px,4.4vw,46px);margin-bottom:18px;">Our Gallery</h2>
+      <p>A look at our delicious creations, our trucks, and the kitchen behind them. Follow @falafoliva on Instagram for more.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <a href="https://www.instagram.com/falafoliva/" target="_blank" rel="noopener"><img class="photo" src="https://www.falafoliva.com/api/uploads/eeb0be4f-8ae4-4509-9949-44c01d161ec4.jpeg" alt="Falafoliva gallery"></a>
+      <a href="https://www.instagram.com/falafoliva/" target="_blank" rel="noopener"><img class="photo" src="https://www.falafoliva.com/api/uploads/c03386c6-f134-4cbf-9269-1c1a43c96548.jpg" alt="Famous falafel wrap"></a>
+      <a href="https://www.instagram.com/falafoliva/" target="_blank" rel="noopener"><img class="photo" src="https://www.falafoliva.com/api/uploads/f2291f56-30b6-4eb1-b54e-219db92d4114.jpeg" alt="Falafoliva gallery"></a>
+      <a href="https://www.instagram.com/falafoliva/" target="_blank" rel="noopener"><img class="photo" src="https://www.falafoliva.com/api/uploads/b4ebe036-2b62-4773-b1a9-0cd778c07ac8.jpeg" alt="Falafoliva gallery"></a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-info reveal">
+      <div class="label on-light">Get In Touch</div>
+      <h2>Have a question, or want to book us for an event?</h2>
+      <p>We cater corporate events, weddings, festivals and private parties across the Lisbon area — reach out for a custom package.</p>
+      <div class="contact-item">
+        <span class="ci-ico">01</span>
+        <div><h5>Location</h5><span>R. Fábrica de Material de Guerra 1, 1950-128 Lisboa</span></div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-ico">02</span>
+        <div><h5>Email</h5><span>geral@falafoliva.com</span></div>
+      </div>
+      <div class="contact-item">
+        <span class="ci-ico">03</span>
+        <div><h5>Follow Us</h5><span>@falafoliva on Instagram &amp; Facebook</span></div>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" onsubmit="event.preventDefault(); this.querySelector('.form-success').style.display='block';">
+      <div class="form-row">
+        <div class="form-field"><label>Name</label><input type="text" required placeholder="Your name"></div>
+        <div class="form-field"><label>Email</label><input type="email" required placeholder="you@email.com"></div>
+      </div>
+      <label>Subject</label>
+      <input type="text" style="margin-bottom:18px;" placeholder="What's this about?">
+      <label>Message</label>
+      <textarea required placeholder="Tell us about your event or order..."></textarea>
+      <button type="submit" class="btn btn-fill" style="width:100%;justify-content:center;">Send Message</button>
+      <p class="form-success" style="display:none;margin-top:14px;color:var(--olive);font-size:14px;text-align:center;">Thanks! We'll be in touch shortly.</p>
+    </form>
+  </div>
+</section>
+
+<div class="copyright">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+    <span>© <span id="copyrightYears">2020–2026</span> Falafoliva. All rights reserved.</span>
+    <div class="social-row" style="gap:10px;">
+      <a href="https://www.facebook.com/Falafoliva/" target="_blank" rel="noopener" aria-label="Facebook" style="width:34px;height:34px;">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+</svg>
+      </a>
+      <a href="https://www.instagram.com/falafoliva/" target="_blank" rel="noopener" aria-label="Instagram" style="width:34px;height:34px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+</svg>
+
+      </a>
+    </div>
+    <span><a href="https://www.falafoliva.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.falafoliva.com/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a></span>
+  </div>
+</div>
+
+<script>
+  const startYear = 2020;
+  const currentYear = new Date().getFullYear();
+  const yearsEl = document.getElementById('copyrightYears');
+  if (yearsEl) yearsEl.textContent = currentYear > startYear ? `${startYear}–${currentYear}` : `${startYear}`;
+
+  function stretchHeadlineLines(){
+    const heading = document.getElementById('stretchHeadline');
+    if (!heading) return;
+    const containerWidth = heading.clientWidth;
+    heading.querySelectorAll('.stline').forEach(line => {
+      line.style.transform = 'scaleX(1)';
+      const natural = line.scrollWidth;
+      if (natural > 0 && containerWidth > 0) {
+        const scale = containerWidth / natural;
+        line.style.transform = `scaleX(${scale})`;
+      }
+    });
+  }
+  window.addEventListener('load', stretchHeadlineLines);
+  window.addEventListener('resize', stretchHeadlineLines);
+  stretchHeadlineLines();
+
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 40));
+
+  const toggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  document.querySelectorAll('.menu-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = document.getElementById('panel-' + tab.dataset.tab);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
