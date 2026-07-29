@@ -113,35 +113,41 @@
   .hero-truck img{width:100%;height:auto;display:block; margin-bottom:50px;}
 .hero-badge {
   position: absolute;
-  top: -66px;
+  top: -46px;
   left: 175px;
   width: 350px;
   height: 158px;
   z-index: 3;
   transform: rotate(-9deg);
   filter: drop-shadow(0 10px 16px rgba(0,0,0,0.45));
-  opacity: 0.75; /* Adjust between 0.0 (completely invisible) and 1.0 (fully opaque) */
+  opacity: 0.70; 
 }
   .hero-badge img{width:100%;height:100%;object-fit:contain;}
   @media (max-width:980px){
     .hero{min-height:auto;}
-    .hero-grid{grid-template-columns:1fr;text-align:left;min-height:auto;padding-bottom:40px;position:static;}
-    .hero-copy{max-width:100%;margin:0;padding-bottom:20px;position:relative;z-index:2;}
+    .hero-grid{grid-template-columns:1fr;text-align:left;min-height:auto;padding-bottom:44px;position:static;}
+    .hero-copy{max-width:100%;margin:0;padding-bottom:20px;padding-top:8px;position:relative;z-index:2;}
     .hero-copy .label{display:none;}
-    .hero-badge{position:static;display:block;width:110px;height:110px;margin:0 0 16px;transform:rotate(-9deg);}
+    .hero-stack{margin:0 0 16px;}
+    .hero-badge{
+      position:absolute;display:block;top:-6px;right:4%;left:auto;
+      width:112px;height:112px;margin:0;transform:rotate(-9deg);
+      filter:drop-shadow(0 10px 14px rgba(0,0,0,0.5));opacity:0.92;
+    }
     .hero-actions{justify-content:flex-start;}
-    .hero-showcase{position:absolute;inset:0;z-index:0;justify-content:center;align-items:center;margin-top:0;opacity:0.3;pointer-events:none;}
+    .hero-showcase{position:absolute;inset:0;z-index:0;justify-content:flex-end;align-items:flex-end;margin-top:0;opacity:0.32;pointer-events:none;}
     .hero-ground-shadow{display:none;}
-    .hero-truck{width:150%;margin-right:0;filter:drop-shadow(0 16px 18px rgba(0,0,0,0.3));}
+    .hero-truck{width:105%;margin-right:-4%;filter:drop-shadow(0 16px 18px rgba(0,0,0,0.3));}
+    .hero-truck img{margin-bottom:0;}
     .hero-bgtype{display:none;}
-    .hero-nav-spacer{height:150px;}
+    .hero-nav-spacer{height:130px;}
   }
   @media (max-width:480px){
     .hero-stack .stline{font-size:38px;}
-    .hero-badge{width:88px;height:88px;margin-bottom:12px;}
-    .hero-nav-spacer{height:120px;}
+    .hero-badge{width:88px;height:88px;top:-2px;right:2%;}
+    .hero-nav-spacer{height:104px;}
     .hero-tagline{font-size:13px;}
-    .hero-truck{width:170%;}
+    .hero-truck{width:120%;margin-right:-10%;}
   }
 
   /* ---------- MARQUEE ---------- */
