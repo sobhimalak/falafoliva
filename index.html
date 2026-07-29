@@ -210,7 +210,12 @@
   .schedule-card .sc-date{font-family:var(--serif);color:var(--gold-soft);background:var(--olive-dark);display:inline-block;padding:4px 12px;border-radius:100px;font-size:12px;margin-bottom:14px;}
   .schedule-card h4{font-size:18px;margin-bottom:8px;}
   .schedule-card span{display:block;font-size:13px;color:var(--ink-soft);margin-bottom:4px;}
-  @media (max-width:900px){.location-top{grid-template-columns:1fr;gap:40px;}.schedule-row{grid-template-columns:1fr 1fr;}}
+  @media (max-width:900px){
+    .location-top{grid-template-columns:1fr;gap:40px;}
+    .schedule-row{grid-template-columns:1fr 1fr;}
+    #team{padding-top:76px !important;}
+  }
+  @media (max-width:600px){#team{padding-top:56px !important;}}
   @media (max-width:560px){.schedule-row{grid-template-columns:1fr;}}
 
   /* ---------- ABOUT ---------- */
@@ -223,6 +228,26 @@
   .about-copy p{color:rgba(255,255,255,0.7);font-size:16px;max-width:480px;margin-bottom:16px;}
   @media (max-width:900px){.about .wrap{grid-template-columns:1fr;gap:44px;}}
   @media (max-width:600px){.about-media{aspect-ratio:4/3.2;}.stat-row{gap:18px !important;row-gap:14px !important;flex-wrap:wrap;}}
+  @media (max-width:900px){
+    .location-top > div:first-child,
+    .about-copy,
+    .contact-info,
+    .reviews-head{
+      text-align:center;
+      margin-left:auto;margin-right:auto;
+    }
+    .location-top > div:first-child p,
+    .about-copy p,
+    .contact-info p{margin-left:auto;margin-right:auto;}
+    .location-copy .label,
+    .about-copy .label,
+    .contact-info .label,
+    .reviews .label{justify-content:center;}
+    .about-copy .stat-row{justify-content:center;}
+    .contact-item{justify-content:center;text-align:left;}
+    .location-copy .btn,
+    #team .btn{margin-left:auto;margin-right:auto;}
+  }
 
   /* ---------- CONTACT ---------- */
   .contact{background:var(--cream);}
